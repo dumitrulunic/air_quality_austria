@@ -11,3 +11,7 @@ dist
 /data/cleaned_air_quality.parquet
 /data/metadata.csv
 /data/merged_air_quality.parquet
+
+# Austria shapefiles
+/data/austria_shapefiles/*
+/data/austria-latest-free.shp.zip
