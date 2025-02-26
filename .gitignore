@@ -1,2 +1,13 @@
 .venv
 .env
+.DS_Store
+node_modules
+dist
+/data/parquet_files/*
+/data/air_quality_complete.parquet
+/data/air_quality_optimized.parquet
+/data/cleaned_air_quality.parquet
+/data/cleaned_metadata.parquet
+/data/cleaned_air_quality.parquet
+/data/metadata.csv
+/data/merged_air_quality.parquet
