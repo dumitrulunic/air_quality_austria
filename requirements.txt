@@ -4,11 +4,13 @@ charset-normalizer==3.4.1
 click==8.1.8
 click-plugins==1.1.1
 cligj==0.7.2
+GeoAlchemy2==0.17.1
 geopandas==1.0.1
 idna==3.10
 numpy==2.2.3
 packaging==24.2
 pandas==2.2.3
+psycopg2==2.9.10
 psycopg2-binary==2.9.10
 pyarrow==19.0.1
 pyogrio==0.10.0
