@@ -3,14 +3,15 @@ version: '3.8'
 services:
   data_processor:
     build:
-      context: .
-      dockerfile: docker/Dockerfile
-    image: data_processor
+      context: ./scripts
+      dockerfile: Dockerfile
     container_name: data_processor
     volumes:
       - ./data:/app/data
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    restart: "no"
 
   db:
     image: postgis/postgis:15-3.3
@@ -21,9 +22,32 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: air_quality
     ports:
-    - "5432:5432"
+      - "5432:5432"
     volumes:
-    - pg_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+    # test postgres and postgis
+      test: ["CMD-SHELL", "pg_isready -U postgres -d air_quality && psql -U postgres -d air_quality -c 'SELECT postgis_version();'"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+
+  fastapi:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      data_processor:
+        condition: service_completed_successfully
+
 
 volumes:
   pg_data:

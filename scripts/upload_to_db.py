@@ -7,7 +7,7 @@ from geoalchemy2 import Geometry
 DB_URL = "postgresql://postgres:password@db:5432/air_quality"
 engine = create_engine(DB_URL)
 
-def load_shapefile_to_db(shapefile_path, table_name, chunksize=5000):
+def load_shapefile_to_db(shapefile_path, table_name, chunksize=4000):
     
     if table_has_data(table_name):
         print(f"Skipping {table_name}: Data already exists in the database.")
